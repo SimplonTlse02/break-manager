@@ -11,43 +11,56 @@ var firebase = require('../services/firebase');
 
 
 var UserPanel = React.createClass({
+	getInitialState(){
+		return {showList:false};
+	},
  
-  render: function() {
+  render() {
 
   	var nextIsClockOut = false;
   	if(breakHelper.getLastEventType(this.props.events) === "CLOCK_IN"){
   		nextIsClockOut = true;
   	}
-  	// console.log('nextIsClockOut', nextIsClockOut);
+  	let details;
+  	if(this.state.showList) {
+  		details = <List events={ this.props.events } />;
+	}
+	let breakOverlayStatus = this.props.isOnBreak ? 'on' : 'off';
+	  return (
+		  <div>
+			  <div className="text-center">
+				  {
+					  // If onClickIn is defined, the user is using it.
+					  // Else, this is admin : no need for buttons.
+					  (this.props.onClockIn)?
+						  (<div>
+							  <ClockButton
+								  label={"Have a break " + this.props.name + " !"}
+								  onClick={ this.props.onClockIn }
+								  disabled={ this.props.isOnBreak }
+								  className="fluid green"
+							  />
+							  <section className={"break-overlay break-overlay--" + breakOverlayStatus}>
+								  <ClockButton
+									  label="Let's go back to work !"
+									  onClick={ this.props.onClockOut }
+									  disabled={ !this.props.isOnBreak  }
+									  className="red huge"
+								  />
+							  </section>
 
-  	return (
-  		<div>
-	 		<div className="text-center">
-  			<h2>Have a break { this.props.name }</h2>
-			{
-				// If onClickIn is defined, the user is using it.
-				// Else, this is admin : no need for buttons.
-				(this.props.onClockIn)?
-				(<div>
-					<ClockButton 
-						label="Début de la pause" 
-						onClick={ this.props.onClockIn } 
-						disabled={ nextIsClockOut }
-					/> 
-					<ClockButton 
-						label="Fin de la pause" 
-						onClick={ this.props.onClockOut } 
-						disabled={ !nextIsClockOut }
-					/>
-				</div> )
-				:"Admin Plot" 
-			}
-			</div>
-	            	
-	        <BreakLabel events={ this.props.events } />
-	        <List events={ this.props.events } />
-	   	</div>
-    );
+						  </div> )
+						  :"Admin Plot"
+				  }
+			  </div>
+
+			  <BreakLabel events={ this.props.events } />
+			  <button className="ui tiny button" onClick={()=>{this.setState({showList:!this.state.showList})}}><i className="icon list" /> Détails</button>
+			  {details}
+
+		  </div>
+	  );
+
   }
 });
 

@@ -8,7 +8,7 @@ var ClockButton = React.createClass({
 	},
 	render : function() {
 		return (
-			<button onClick={ this.handleClick } disabled={ this.props.disabled } className="ui button">
+			<button onClick={ this.handleClick } disabled={ this.props.disabled } className={this.props.className + " ui button"}>
 				{ this.props.label }
 			</button>
 		);

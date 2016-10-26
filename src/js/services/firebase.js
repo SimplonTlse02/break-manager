@@ -1,9 +1,9 @@
 "use strict";
 var firebase = require("firebase");
-var config = require("../config");
 
 
-firebase.initializeApp(config.firebase);
+
+firebase.initializeApp(window.breakmanConfig);
 
 // Get a reference to the database service
 var database = firebase.database();

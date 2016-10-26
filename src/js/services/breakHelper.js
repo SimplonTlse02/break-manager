@@ -93,7 +93,6 @@ var app = {
 			var eventDate = moment(event.date);
 			return eventDate.isBetween(today, tomorrow);
 		})
-
 		return todayEvents;
 	},
 	getLastEventType: function(events){
@@ -101,6 +100,7 @@ var app = {
 		if(events && events.length > 0){
 			res = events[events.length-1].type;
 		}
+		console.log('lstenttype', res)
 		return res;
 	},
 	getLastTime: function(events){

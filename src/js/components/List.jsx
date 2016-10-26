@@ -12,7 +12,7 @@ var List = React.createClass({
 		});
 
 		return (
-			<table className="ui celled striped table">
+			<table className="ui celled striped table compact">
 			<thead>
 				<tr>
 					<th>Type</th>
