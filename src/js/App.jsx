@@ -98,11 +98,10 @@ let isAdmin = ("1" == element.getAttribute('data-isAdmin'));
 
 ReactDOM.render(
     <div>
-      <App name={ name }/>
       {
         (isAdmin)?
             <AdminApp name={ name }/>
-            :""
+            :<App name={ name }/>
       }
     </div>,
     element
